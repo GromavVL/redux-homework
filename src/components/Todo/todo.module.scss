@@ -1,0 +1,150 @@
+@mixin baseStyle {
+    color: white;
+    font-family: sans-serif;
+}
+
+@mixin font {
+    font-size: 16px;
+}
+
+.home {
+    border: 2px solid #d9f99d;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.todoHeader {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px 16px 0 0;
+    min-width: 630px;
+    background: linear-gradient(to right, #84cc16, #22c55e, #facc15);
+    padding: 28px;
+}
+
+.title {
+    @include baseStyle;
+    font-size: 34px;
+    font-weight: 500;
+    padding: 10px 10px 10px 0;
+}
+
+.progress {
+    @include baseStyle;
+    @include font;
+}
+
+.addTask {
+    display: flex;
+    gap: 10px;
+    background-color: #f5fde6;
+    padding: 28px;
+    border-bottom: 2px solid #d9f99d;
+}
+
+.inputAdd {
+    outline: none;
+    border: 2px solid #92db25;
+    background-color: #f5fde6;
+    padding: 15px;
+    border-radius: 10px;
+    width: 80%;
+    @include font;
+}
+
+.buttonAdd {
+    border-radius: 10px;
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(to right, #84cc16, #22c55e);
+    color: white;
+    width: 18%;
+    @include font;
+}
+
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    padding: 28px;
+    
+}
+
+.taskLabel {
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+    gap: 8px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #d9f99d;
+    background-color: #f5fde6;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.task:hover {
+    border: 2px solid #92db25;
+}
+
+.checkBoxTask {
+    cursor: pointer;
+    accent-color: #92db25;
+}
+
+.deleteTask {
+    border: none;
+    color: #ef4444;
+    background-color: #fef9c3; 
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px; 
+}
+
+.deleteTask:hover {
+    background-color: #fee2e2;
+}
+
+.updataTask {
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: #fef9c3; 
+    color: #22c55e;
+}
+
+.updataTask:hover {
+    background-color: #d9f99d;
+}
+
+.buttonTask {
+    display: flex;
+    gap: 10px;
+}
+
+.noTodo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 75px;
+}
+
+.h1El {
+    font-size: 24px;
+    color: #a3a3a3;
+}
+
+.pEl {
+    color: #a3a3a3;
+}
