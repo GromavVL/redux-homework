@@ -1,27 +1,49 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { FaRegTrashAlt } from 'react-icons/fa';
+import { connect } from 'react-redux';
 import { FaPen } from 'react-icons/fa';
+import {
+  deleteTodo,
+  completeTodo,
+  createTodo,
+} from '../../store/slices/todoSlice';
+import { TODO_VALIDATION_SCHEMA } from '../../utils/validatiosnShemas';
+import classNames from 'classnames';
 import styles from './todo.module.scss';
 
-function Todo ({ createNewTodo }) {
+function Todo ({ todoTask, deleteTodoById, completeTodoTask, createTodoTask }) {
   const initialValues = {
     todo: '',
   };
   console.log('initialValues :>> ', initialValues);
   const submitHandler = (values, { resetForm }) => {
-    // createNewTodo(values);
+    createTodoTask(values);
     console.log('values :>> ', values);
     resetForm();
   };
+  const changeCompleted = (id, checked) => {
+    completeTodoTask(id, { isCompleted: checked });
+  };
+  const taskClass = isCompleted =>
+    classNames(styles.task, { [styles.taskDisable]: isCompleted });
+
+  const completeadtaskNumner = () =>
+    todoTask.todo.filter(t => t.isCompleted).length;
+  const taskNumber = () => todoTask.todo.length;
+  
   return (
     <section className={styles.home}>
       <div className={styles.todoHeader}>
         <h1 className={styles.title}>✓ Todo App</h1>
         <p className={styles.progress}>
-          {1} or {1} tasks completed
+          {completeadtaskNumner()} or {taskNumber()} tasks completed
         </p>
       </div>
-      <Formik initialValues={initialValues} onSubmit={submitHandler}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={TODO_VALIDATION_SCHEMA}
+        onSubmit={submitHandler}
+      >
         <Form className={styles.addTask}>
           <Field
             name='todo'
@@ -30,35 +52,55 @@ function Todo ({ createNewTodo }) {
             autoFocus
             className={styles.inputAdd}
           />
-          <ErrorMessage name='todo' component={'div'} />
           <button type='submit' className={styles.buttonAdd}>
             + Add
           </button>
         </Form>
       </Formik>
       <div className={styles.taskList}>
-        {/* <div className={styles.noTodo}>
-          <h1 className={styles.h1El}>No todos yet!</h1>
-          <p className={styles.pEl}>Add one above to get started</p>
-        </div> */}
-        <div className={styles.task}>
-          <label className={styles.taskLabel}>
-            <input type='checkbox' className={styles.checkBoxTask} />
-            <p>Welcome to your Todo App</p>
-          </label>
-          <div className={styles.buttonTask}>
-            <button className={styles.updataTask}>
-              <FaPen />
-            </button>
-
-            <button className={styles.deleteTask}>
-              <FaRegTrashAlt />
-            </button>
+        {todoTask.todo.length === 0 ? (
+          <div className={styles.noTodo}>
+            <h1 className={styles.h1El}>No todos yet!</h1>
+            <p className={styles.pEl}>Add one above to get started</p>
           </div>
-        </div>
+        ) : (
+          todoTask.todo.map(t => (
+            <div key={t.id} className={taskClass(t.isCompleted)}>
+              <label className={styles.taskLabel}>
+                <input
+                  type='checkbox'
+                  checked={t.isCompleted}
+                  onChange={({ target: { checked } }) =>
+                    changeCompleted(t.id, checked)
+                  }
+                  className={styles.checkBoxTask}
+                />
+                <p>{t.task}</p>
+              </label>
+              <div className={styles.buttonTask}>
+                <button className={styles.updataTask}>
+                  <FaPen />
+                </button>
+                <button
+                  className={styles.deleteTask}
+                  onClick={() => deleteTodoById(t.id)}
+                >
+                  <FaRegTrashAlt />
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </section>
   );
 }
 
-export default Todo;
+const mapStateToProps = ({ todoTask }) => ({ todoTask });
+const mapDispatchToProps = dispatch => ({
+  deleteTodoById: id => dispatch(deleteTodo(id)),
+  completeTodoTask: (id, data) => dispatch(completeTodo({ id, data })),
+  createTodoTask: data => dispatch(createTodo(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todo);

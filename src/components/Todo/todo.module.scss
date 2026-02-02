@@ -91,10 +91,6 @@
     padding: 15px;
 }
 
-.task:hover {
-    border: 2px solid #92db25;
-}
-
 .checkBoxTask {
     cursor: pointer;
     accent-color: #92db25;
@@ -147,4 +143,17 @@
 
 .pEl {
     color: #a3a3a3;
+}
+
+.taskDisable {
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+
+  p {
+    text-decoration: line-through;
+    color: #7a7a7a;
+  }
 }
