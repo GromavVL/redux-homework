@@ -60,8 +60,8 @@ function Todo ({ todoTask, deleteTodoById, completeTodoTask, createTodoTask }) {
       <div className={styles.taskList}>
         {todoTask.todo.length === 0 ? (
           <div className={styles.noTodo}>
-            <h1 className={styles.h1El}>No todos yet!</h1>
-            <p className={styles.pEl}>Add one above to get started</p>
+            <h1 className={styles.noTodoTitle}>No todos yet!</h1>
+            <p className={styles.noTodoText}>Add one above to get started</p>
           </div>
         ) : (
           todoTask.todo.map(t => (
@@ -78,7 +78,7 @@ function Todo ({ todoTask, deleteTodoById, completeTodoTask, createTodoTask }) {
                 <p>{t.task}</p>
               </label>
               <div className={styles.buttonTask}>
-                <button className={styles.updataTask}>
+                <button className={styles.updateTask}>
                   <FaPen />
                 </button>
                 <button
