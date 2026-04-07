@@ -26,11 +26,16 @@ const todoSlice = createSlice({
         ...data,
       };
     },
-    // updateTodo: (state, actions) => {},
+    updateTodo: (state, { payload: { id, task } }) => {
+      const todo = state.todo.find(t => t.id === id);
+      if (todo) {
+        todo.task = task;
+      }
+    },
   },
 });
 
 const { reducer, actions } = todoSlice;
 
-export const { deleteTodo, completeTodo, createTodo } = actions;
+export const { deleteTodo, completeTodo, createTodo, updateTodo } = actions;
 export default reducer;

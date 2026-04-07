@@ -133,6 +133,17 @@ $radius-lg: 16px;
     }
 }
 
+.editInput {
+    flex: 1;
+    outline: none;
+    border: 2px solid $color-accent;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: $radius;
+    font-size: $font-base;
+    font-family: $font-family;
+}
+
 .buttonTask {
     display: flex;
     gap: 10px;
