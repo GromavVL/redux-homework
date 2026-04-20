@@ -13,7 +13,13 @@ import { TODO_VALIDATION_SCHEMA } from '../../utils/validatiosnShemas';
 import classNames from 'classnames';
 import styles from './todo.module.scss';
 
-function Todo ({ todoTask, deleteTodoById, completeTodoTask, createTodoTask, updateTodoTask }) {
+function Todo ({
+  todoTask,
+  deleteTodoById,
+  completeTodoTask,
+  createTodoTask,
+  updateTodoTask,
+}) {
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState('');
 
@@ -35,7 +41,7 @@ function Todo ({ todoTask, deleteTodoById, completeTodoTask, createTodoTask, upd
     setEditingId(null);
     setEditText('');
   };
-  const saveEditing = (id) => {
+  const saveEditing = id => {
     const trimmed = editText.trim();
     if (trimmed) {
       updateTodoTask(id, trimmed);
@@ -49,7 +55,7 @@ function Todo ({ todoTask, deleteTodoById, completeTodoTask, createTodoTask, upd
   const completeadtaskNumner = () =>
     todoTask.todo.filter(t => t.isCompleted).length;
   const taskNumber = () => todoTask.todo.length;
-  
+
   return (
     <section className={styles.home}>
       <div className={styles.todoHeader}>
@@ -130,6 +136,7 @@ function Todo ({ todoTask, deleteTodoById, completeTodoTask, createTodoTask, upd
                     <button
                       className={styles.updateTask}
                       onClick={() => startEditing(t.id, t.task)}
+                      disabled={t.isCompleted}
                     >
                       <FaPen />
                     </button>
